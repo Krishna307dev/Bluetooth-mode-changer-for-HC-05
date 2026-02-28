@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Robot Car Controller</title>
+    <meta name="description"
+        content="3-in-1 Robot Car Bluetooth Controller - Bluetooth Control, Human Following, Obstacle Avoidance">
+    <link rel="icon" href="app-icon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Splash/Loading Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-bg-glow"></div>
+        <div class="splash-circuit-lines">
+            <div class="circuit-line cl-1"></div>
+            <div class="circuit-line cl-2"></div>
+            <div class="circuit-line cl-3"></div>
+            <div class="circuit-line cl-4"></div>
+            <div class="circuit-line cl-5"></div>
+            <div class="circuit-line cl-6"></div>
+        </div>
+        <div class="splash-content">
+            <div class="splash-logo-ring">
+                <div class="splash-ring-outer"></div>
+                <div class="splash-ring-inner"></div>
+                <img class="splash-logo" src="Icon.svg" alt="Robot Car Logo" width="70" height="70">
+            </div>
+            <h1 class="splash-title">ROBOT CAR</h1>
+            <p class="splash-subtitle">MODE SWITCHER</p>
+            <p class="splash-author">MADE BY <strong>KRISHNA</strong></p>
+            <div class="splash-loader">
+                <div class="splash-loader-bar"></div>
+            </div>
+            <p class="splash-loading-text">Initializing systems<span class="splash-dots"></span></p>
+        </div>
+        <div class="splash-credit">
+            <span class="splash-credit-line"></span>
+            <p>MADE BY <strong>KRISHNA</strong></p>
+            <span class="splash-credit-line"></span>
+        </div>
+    </div>
+    <!-- Animated background particles -->
+    <div class="bg-particles" id="bgParticles"></div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo-icon">
+                    <img src="Icon.svg" alt="Robot Car Logo" width="30" height="30" style="border-radius: 6px;">
+                </div>
+                <div class="header-title">
+                    <h1>ROBOT CAR</h1>
+                    <span class="header-subtitle">MODE SWITCHER</span>
+                </div>
+            </div>
+            <button class="diagram-btn" id="diagramBtn" title="Circuit Diagram" aria-label="View circuit diagram">
+                <img src="image.png" alt="Circuit" class="diagram-btn-icon">
+                <span class="diagram-btn-label">Circuit</span>
+            </button>
+        </header>
+
+        <!-- Connection Status Bar -->
+        <div class="connection-bar" id="connectionBar" role="status" aria-live="polite">
+            <div class="connection-status">
+                <div class="status-dot disconnected" id="statusDot"></div>
+                <span class="status-text" id="statusText">Not Connected</span>
+            </div>
+            <button class="connect-btn" id="connectBtn">
+                <img src="Bluetooth.svg" alt="BT" width="18" height="18"
+                    style="filter: drop-shadow(0 0 2px var(--cyan)); margin-right: 5px;">
+                <span id="connectBtnText">Connect</span>
+            </button>
+        </div>
+
+        <!-- Current Mode Display -->
+        <div class="current-mode-section">
+            <span class="mode-label">CURRENT MODE</span>
+            <div class="mode-display" id="modeDisplay">
+                <div class="mode-icon-large" id="modeIconLargeWrapper">
+                    <img id="modeIconLarge" src="Standby.svg" alt="Mode Icon" width="64" height="64"
+                        style="filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));">
+                </div>
+                <h2 class="mode-name" id="modeName" aria-live="polite">No Mode Selected</h2>
+                <p class="mode-description" id="modeDescription">Select a mode below to start</p>
+            </div>
+        </div>
+
+        <!-- Mode Buttons -->
+        <div class="modes-section">
+            <span class="section-label">SELECT MODE</span>
+            <div class="modes-grid">
+                <button class="mode-card mode-bluetooth" id="modeBluetooth" data-mode="bluetooth" data-command="M">
+                    <div class="mode-card-glow"></div>
+                    <div class="mode-card-content">
+                        <div class="mode-icon">
+                            <img src="Bluetooth.svg" alt="Bluetooth" width="36" height="36"
+                                style="filter: drop-shadow(0 0 5px var(--cyan));">
+                        </div>
+                        <span class="mode-card-title">Bluetooth Control</span>
+                    </div>
+                    <div class="mode-active-indicator"></div>
+                </button>
+                <button class="mode-card mode-human" id="modeHuman" data-mode="human" data-command="Z">
+                    <div class="mode-card-glow"></div>
+                    <div class="mode-card-content">
+                        <div class="mode-icon">
+                            <img src="Human.svg" alt="Human" width="36" height="36"
+                                style="filter: drop-shadow(0 0 5px var(--green));">
+                        </div>
+                        <span class="mode-card-title">Human Following</span>
+                    </div>
+                    <div class="mode-active-indicator"></div>
+                </button>
+                <button class="mode-card mode-obstacle" id="modeObstacle" data-mode="obstacle" data-command="Y">
+                    <div class="mode-card-glow"></div>
+                    <div class="mode-card-content">
+                        <div class="mode-icon">
+                            <img src="Obstacle.svg" alt="Obstacle" width="36" height="36"
+                                style="filter: drop-shadow(0 0 5px var(--orange));">
+                        </div>
+                        <span class="mode-card-title">Obstacle Avoid</span>
+                    </div>
+                    <div class="mode-active-indicator"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-line"></div>
+            <span class="footer-credit">Made By <strong>Krishna</strong></span>
+        </footer>
+    </div>
+
+    <!-- Bluetooth Device Selection Modal -->
+    <div class="modal-overlay" id="btModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Select Bluetooth Device</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="device-list" id="deviceList">
+                    <div class="scanning-indicator" id="scanIndicator">
+                        <div class="scan-spinner"></div>
+                        <span>Scanning for devices...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="scan-btn" id="scanBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12a9 9 0 11-6.219-8.56" />
+                    </svg>
+                    Scan Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagram Viewer Overlay -->
+    <div class="diagram-overlay" id="diagramOverlay">
+        <div class="diagram-header">
+            <h3>Connection Diagram</h3>
+            <div class="diagram-controls">
+                <button class="diagram-control-btn" id="zoomIn" title="Zoom In" aria-label="Zoom in">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        <line x1="11" y1="8" x2="11" y2="14" />
+                        <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                </button>
+                <button class="diagram-control-btn" id="zoomOut" title="Zoom Out" aria-label="Zoom out">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                </button>
+                <button class="diagram-control-btn" id="zoomReset" title="Reset View" aria-label="Reset zoom">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                        <path d="M3 3v5h5" />
+                    </svg>
+                </button>
+                <button class="diagram-close-btn" id="diagramClose" aria-label="Close diagram">&times;</button>
+            </div>
+        </div>
+        <div class="diagram-viewport" id="diagramViewport">
+            <img src="Diagram.svg" alt="Connection Diagram" class="diagram-image" id="diagramImage" draggable="false">
+        </div>
+        <div class="diagram-hint">Pinch to zoom • Drag to pan • Double-tap to reset</div>
+    </div>
+
+    <!-- Bluetooth Controller Overlay -->
+    <div class="ctrl-overlay" id="ctrlOverlay">
+        <!-- Launch Screen -->
+        <div class="ctrl-launch" id="ctrlLaunch">
+            <div class="ctrl-launch-bg"></div>
+            <div class="ctrl-launch-content">
+                <div class="ctrl-launch-icon">
+                    <img src="Bluetooth.svg" alt="Bluetooth" width="60" height="60"
+                        style="filter: drop-shadow(0 0 10px var(--cyan)); animation: pulse 2s infinite;">
+                </div>
+                <h2 class="ctrl-launch-title">LAUNCHING CONTROLLER</h2>
+                <div class="ctrl-launch-bar">
+                    <div class="ctrl-launch-bar-fill"></div>
+                </div>
+                <p class="ctrl-launch-credit">MADE BY <strong>KRISHNA</strong></p>
+            </div>
+        </div>
+
+        <!-- PCB Background -->
+        <div class="ctrl-bg-pcb">
+            <!-- Video Background -->
+            <video class="pcb-video-bg" autoplay loop muted playsinline>
+                <source src="controllerbg.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Controller UI -->
+        <div class="ctrl-ui" id="ctrlUI">
+            <!-- Top Bar: Actions Only -->
+            <div class="ctrl-topbar">
+                <div class="ctrl-topbar-left">
+                    <button class="ctrl-safety-btn" id="ctrlSafety" title="Safety Assist"
+                        aria-label="Toggle safety assist">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                        <span>SAFE</span>
+                    </button>
+                </div>
+
+                <div class="ctrl-topbar-center">
+                    <!-- Gear Indicator Removed -->
+                </div>
+
+                <div class="ctrl-topbar-right">
+                    <button class="ctrl-cmd-btn" id="ctrlCmdBtn" title="CMD Reference">CMD</button>
+                    <button class="ctrl-back-btn" id="ctrlExit">EXIT</button>
+                </div>
+            </div>
+
+            <!-- Main Controls Grid -->
+            <div class="ctrl-grid">
+
+                <!-- LEFT PANEL: FWD/BWD + GEARBOX -->
+                <div class="ctrl-panel-left">
+                    <!-- Fwd/Bwd Stick -->
+                    <div class="stick-group vertical">
+                        <button class="stick-btn up" id="btnForward" data-cmd="F">
+                            <span class="stick-arrow">▲</span>
+                            <span class="stick-label">FWD</span>
+                        </button>
+                        <button class="stick-btn down" id="btnBackward" data-cmd="B">
+                            <span class="stick-arrow">▼</span>
+                            <span class="stick-label">BWD</span>
+                        </button>
+                    </div>
+
+                    <!-- Gearbox -->
+                    <div class="gearbox">
+                        <div class="gearbox-track">
+                            <div class="gear-slot" data-gear="5">5</div>
+                            <div class="gear-slot" data-gear="4">4</div>
+                            <div class="gear-slot" data-gear="3">3</div>
+                            <div class="gear-slot" data-gear="2">2</div>
+                            <div class="gear-slot" data-gear="1">1</div>
+                            <div class="gear-slot" data-gear="N">N</div>
+                            <div class="gear-knob" id="gearKnob"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTER: Display -->
+                <div class="ctrl-panel-center">
+                    <div class="ctrl-dir-display" id="ctrlDirDisplay">
+                        <!-- Clean Grid Layout -->
+                        <div class="display-section top">
+                            <span id="ctrlDisplayGear">N</span>
+                        </div>
+                        <div class="display-section middle">
+                            <span id="ctrlDirArrow"></span>
+                        </div>
+                        <div class="display-section bottom">
+                            <span id="ctrlDirLabel">STOP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL: LEFT/RIGHT (Horizontal) -->
+                <div class="ctrl-panel-right">
+                    <!-- Left/Right Stick (Horizontal) -->
+                    <div class="stick-group horizontal">
+                        <button class="stick-btn left" id="btnLeft" data-cmd="L">
+                            <span class="stick-arrow">◀</span>
+                            <span class="stick-label">LEFT</span>
+                        </button>
+                        <button class="stick-btn right" id="btnRight" data-cmd="R">
+                            <span class="stick-arrow">▶</span>
+                            <span class="stick-label">RIGHT</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Bar: Stop All Only -->
+            <div class="ctrl-bottombar">
+                <button class="ctrl-stopall-btn" id="ctrlStopAll">STOP ALL</button>
+                <div class="ctrl-credit">CREATED BY <strong>KRISHNA</strong></div>
+                <div class="ctrl-signal" id="ctrlSignal" title="Signal Strength">
+                    <div class="signal-bars">
+                        <div class="signal-bar bar-1"></div>
+                        <div class="signal-bar bar-2"></div>
+                        <div class="signal-bar bar-3"></div>
+                        <div class="signal-bar bar-4"></div>
+                    </div>
+                    <span class="signal-text">EXCELLENT</span>
+                </div>
+            </div>
+
+            <!-- CMD Reference Panel (Hidden by default) -->
+            <div class="ctrl-cmd-panel" id="ctrlCmdPanel" style="display: none;">
+                <div class="ctrl-cmd-header">
+                    <h3>COMMAND REFERENCE</h3>
+                    <div class="ctrl-cmd-header-actions">
+                        <label class="ctrl-edit-toggle">
+                            <span>Edit</span>
+                            <input type="checkbox" id="ctrlEditToggle">
+                            <span class="ctrl-toggle-slider"></span>
+                        </label>
+                        <button class="ctrl-cmd-close" id="ctrlCmdClose">&times;</button>
+                    </div>
+                </div>
+                <div class="ctrl-cmd-body" id="ctrlCmdBody">
+                    <div class="ctrl-cmd-group">
+                        <h4>Settings</h4>
+                        <div class="ctrl-settings-row">
+                            <span>Vibration</span>
+                            <input type="range" id="hapticSlider" min="0" max="3" value="2" class="cyber-slider">
+                        </div>
+                    </div>
+                    <div class="ctrl-cmd-group">
+                        <h4>Movement</h4>
+                        <div class="ctrl-cmd-row" data-key="forward"><span>Forward</span><input class="ctrl-cmd-input"
+                                value="F" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="backward"><span>Backward</span><input class="ctrl-cmd-input"
+                                value="B" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="left"><span>Left</span><input class="ctrl-cmd-input"
+                                value="L" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="right"><span>Right</span><input class="ctrl-cmd-input"
+                                value="R" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="fwd_left"><span>Fwd Left</span><input class="ctrl-cmd-input"
+                                value="I" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="fwd_right"><span>Fwd Right</span><input
+                                class="ctrl-cmd-input" value="G" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="bwd_left"><span>Bwd Left</span><input class="ctrl-cmd-input"
+                                value="J" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="bwd_right"><span>Bwd Right</span><input
+                                class="ctrl-cmd-input" value="H" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="stop_all"><span>Stop All</span><input class="ctrl-cmd-input"
+                                value="D" disabled></div>
+                    </div>
+                    <div class="ctrl-cmd-group">
+                        <h4>Modes</h4>
+                        <div class="ctrl-cmd-row" data-key="mode_bt"><span>BT Mode</span><input class="ctrl-cmd-input"
+                                value="M" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="mode_obstacle"><span>Obstacle</span><input
+                                class="ctrl-cmd-input" value="Y" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="mode_follow"><span>Follow</span><input
+                                class="ctrl-cmd-input" value="Z" disabled></div>
+                    </div>
+                    <div class="ctrl-cmd-group">
+                        <h4>Gears (Speed)</h4>
+                        <div class="ctrl-cmd-row" data-key="gear_1"><span>Gear 1</span><input class="ctrl-cmd-input"
+                                value="2" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="gear_2"><span>Gear 2</span><input class="ctrl-cmd-input"
+                                value="4" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="gear_3"><span>Gear 3</span><input class="ctrl-cmd-input"
+                                value="6" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="gear_4"><span>Gear 4</span><input class="ctrl-cmd-input"
+                                value="8" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="gear_5"><span>Gear 5</span><input class="ctrl-cmd-input"
+                                value="q" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="gear_N"><span>Neutral</span><input class="ctrl-cmd-input"
+                                value="0" disabled></div>
+                    </div>
+                    <div class="ctrl-cmd-group">
+                        <h4>Safety</h4>
+                        <div class="ctrl-cmd-row" data-key="safety_on"><span>Safety ON</span><input
+                                class="ctrl-cmd-input" value="X" disabled></div>
+                        <div class="ctrl-cmd-row" data-key="safety_off"><span>Safety OFF</span><input
+                                class="ctrl-cmd-input" value="x" disabled></div>
+                    </div>
+                </div>
+                <div class="ctrl-cmd-save-bar" id="ctrlSaveBar">
+                    <button class="ctrl-save-btn" id="ctrlSaveBtn">💾 SAVE COMMANDS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

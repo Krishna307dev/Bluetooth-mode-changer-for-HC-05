@@ -1,0 +1,26 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="neon-glow-green" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <linearGradient id="green-gradient" x1="32" y1="0" x2="32" y2="64" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#00FF88"/>
+            <stop offset="1" stop-color="#00CC66"/>
+        </linearGradient>
+    </defs>
+    
+    <!-- Outer Ring (Tech Vibe) -->
+    <circle cx="32" cy="32" r="30" stroke="url(#green-gradient)" stroke-width="2" stroke-opacity="0.5" />
+    <path d="M32 2V6M32 58V62M2 32H6M58 32H62" stroke="#00FF88" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Human Symbol (User Icon) -->
+    <g transform="translate(14, 14) scale(1.5)" filter="url(#neon-glow-green)">
+        <!-- Original Path from index.html -->
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="#00FF88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="12" cy="7" r="4" stroke="#00FF88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+</svg>

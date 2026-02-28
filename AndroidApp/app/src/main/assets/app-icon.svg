@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#111d2e"/>
+      <stop offset="100%" stop-color="#0a0e17"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="rgba(0,240,255,0.12)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" rx="108" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="108" fill="url(#glow)"/>
+  <!-- Border -->
+  <rect x="4" y="4" width="504" height="504" rx="106" fill="none" stroke="rgba(0,240,255,0.2)" stroke-width="3"/>
+  
+  <!-- Car Body -->
+  <rect x="96" y="172" width="320" height="160" rx="40" fill="rgba(0,240,255,0.06)" stroke="#00f0ff" stroke-width="8"/>
+  
+  <!-- Roof / Sensor Module -->
+  <rect x="180" y="108" width="152" height="64" rx="18" fill="rgba(0,240,255,0.04)" stroke="#00f0ff" stroke-width="6"/>
+  
+  <!-- Antenna -->
+  <line x1="256" y1="108" x2="256" y2="60" stroke="#00f0ff" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="256" cy="52" r="10" fill="#00f0ff"/>
+  
+  <!-- Signal Waves -->
+  <path d="M290 76c8-10 16-14 28-16" stroke="#00f0ff" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <path d="M300 92c12-14 24-20 40-24" stroke="#00f0ff" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.25"/>
+  
+  <!-- Headlights -->
+  <circle cx="148" cy="252" r="20" fill="#00f0ff" opacity="0.85"/>
+  <circle cx="364" cy="252" r="20" fill="#00f0ff" opacity="0.85"/>
+  
+  <!-- Center LED -->
+  <circle cx="256" cy="252" r="12" fill="#00f0ff" opacity="0.4"/>
+  
+  <!-- Wheels -->
+  <circle cx="160" cy="370" r="42" fill="rgba(0,240,255,0.06)" stroke="#00f0ff" stroke-width="7"/>
+  <circle cx="352" cy="370" r="42" fill="rgba(0,240,255,0.06)" stroke="#00f0ff" stroke-width="7"/>
+  <circle cx="160" cy="370" r="14" fill="#00f0ff"/>
+  <circle cx="352" cy="370" r="14" fill="#00f0ff"/>
+  
+  <!-- Axle connectors -->
+  <line x1="160" y1="332" x2="160" y2="326" stroke="#00f0ff" stroke-width="6" stroke-linecap="round"/>
+  <line x1="352" y1="332" x2="352" y2="326" stroke="#00f0ff" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Bottom text -->
+  <text x="256" y="460" text-anchor="middle" font-family="monospace" font-size="32" font-weight="bold" fill="rgba(0,240,255,0.35)" letter-spacing="8">RC MODE</text>
+</svg>

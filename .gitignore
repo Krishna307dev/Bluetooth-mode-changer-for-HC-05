@@ -1,0 +1,42 @@
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.gradle/
+local.properties
+/.idea/workspace.xml
+/.idea/tasks.xml
+/.idea/gradle.xml
+/.idea/assetWizardSettings.xml
+/.idea/dictionaries
+/.idea/libraries
+/.idea/caches
+.cxx/
+
+# Gradle generated files
+build/
+app/build/
+*/build/
+captures/
+.externalNativeBuild
+.cxx
+*.iml
+*.hprof
+
+# Log Files
+*.log
+
+# Keystore files (WARNING: Only ignore if this is a public repo!)
+*.jks
+*.keystore
+
+# Google Services (e.g. APIs, Firebase)
+google-services.json
