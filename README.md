@@ -75,18 +75,13 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ## 🔑 Keywords
 
- -Arduino Robot Car
- -HC-05 Bluetooth Robot
- -Obstacle Avoidance Robot
- -Human Following Robot
- -Android Bluetooth Controller
- -Arduino Robot Car Project
- -HC-05 Bluetooth Robot Car
- -Multi Mode Robot Car
- -Obstacle Avoidance Robot using Ultrasonic Sensor
- -Human Following Robot using Arduino
- -Android Bluetooth Controller App
- -DIY Arduino Robotics Project
- -Arduino Based Smart Robot
- -L298N Motor Driver Robot Car
- -Robotics Project for School Exhibition
+Arduino Robot Car  
+HC-05 Bluetooth Robot  
+Multi Mode Robot Car  
+Obstacle Avoidance Robot (Ultrasonic Sensor)  
+Human Following Robot  
+Android Bluetooth Controller App  
+L298N Motor Driver Project  
+DIY Arduino Robotics Project  
+STEM Robotics Project for Students  
+School Science Exhibition Robot Project
